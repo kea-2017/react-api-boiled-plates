@@ -4,7 +4,7 @@ import {HashRouter as Router, Route} from 'react-router-dom'
 
 import Home from './Home'
 import Header from './Header'
-// import SearchBar from './Search_bar'
+import SearchBar from './Search_bar'
 import Graph from './Graph'
 import GraphTitle from './Graph_title'
 import GraphList from './Graph_list'
@@ -17,7 +17,7 @@ const App = () => {
         <div>
           <Route exact path='/' component={Home}/>
           <Route path='/graph' component={Header}/>
-          {/* <Route path='/graph' component={SearchBar}/> */}
+          <Route path='/graph' component={SearchBar}/>
           <Route exact path='/Graph' component={GraphList}/>
           <Route exact path='/Graph' component={GraphList}/>
           <Route exact path='/Graph' component={GraphList}/>
