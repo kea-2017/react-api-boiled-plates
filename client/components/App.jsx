@@ -13,14 +13,22 @@ import GraphList from './Graph_list'
 import WeekGraph from './Week_graph'
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      data: []
+    }
+  }
   componentDidMount() {
-    request
-    .get('https://min-api.cryptocompare.com/data/')
-    .end((err, res) => {
-      console.log(res.body)
+    request.get('http://localhost:3000/v1/coinPrice').end((err, res) => {
+      console.log(err, res.body);
+      this.setState({data: res.body})
     })
   }
   render() {
+    // console.log(this.state);
+    let data = this.state.data
+    console.log({data});
     return (
       <div>
         <Router>
@@ -28,13 +36,18 @@ export default class App extends React.Component {
             <Route exact path='/' component={Home}/>
             <Route path='/graph' component={Header}/>
             <Route path='/graph' component={SearchBar}/>
-            <Route exact path='/Graph' component={GraphList}/>
-            <Route exact path='/Graph' component={GraphList}/>
-            <Route exact path='/Graph' component={GraphList}/>
-            <Route exact path='/Graph' component={GraphList}/>
-            <Route exact path='/Graph' component={GraphList}/>
-            <Route exact path='/Graph' component={GraphList}/>
-            <Route path='/Graph_list/:id' component={WeekGraph}/>
+            <span>" "</span>
+            <row>
+              <Route exact path='/Graph' render={() => <GraphList data={data} />}/>
+              <Route exact path='/Graph' component={GraphList}/>
+              <Route exact path='/Graph' component={GraphList}/>
+            </row>
+            <row>
+              <Route exact path='/Graph' component={GraphList}/>
+              <Route exact path='/Graph' component={GraphList}/>
+              <Route exact path='/Graph' component={GraphList}/>
+              <Route path='/Graph_list' component={() => <Graph data={data}/>}/>
+            </row>
           </div>
         </Router>
       </div>

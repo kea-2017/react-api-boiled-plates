@@ -16,7 +16,7 @@ export default class GraphList extends React.Component {
     return (
       <div>
         <ul className='oneGraph col-sm-4'>
-          <Graph/>
+          <Graph data={this.props.data}/>
         </ul>
       </div>
     )
