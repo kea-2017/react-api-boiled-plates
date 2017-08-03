@@ -21,12 +21,11 @@ export default class App extends React.Component {
   }
   componentDidMount() {
     this.getCoinData('BTC')
-    // this.getCoinData('ETH')
   }
   getCoinData(coinName) {
     request.get(`http://localhost:3000/v1/coinPrice/${coinName}`).end((err, res) => {
-      console.log(err, res.body);
-      if (err) return
+      if (err)
+        return
       let data = this.state.data
       data[coinName] = res.body
       this.setState({data})
@@ -41,15 +40,11 @@ export default class App extends React.Component {
         <Router>
           <div>
             <Route exact path='/' component={Home}/>
-            <Route path='/graph' component={Header}/>
-            <Route path='/graph' component={(props) => <SearchBar submit={this.getCoinData.bind(this)}/>}/>
-            <span>" "</span>
-
-            <row>
-              <Route exact path='/Graph' render={() => <GraphList data={data} />}/>
-
-              <Route path='/Graph_list' component={() => <Graph data={data}/>}/>
-            </row>
+            <Route path='/Graph' component={Header}/>
+            <Route path='/Graph' component={(props) => <SearchBar submit={this.getCoinData.bind(this)}/>}/>
+            <span></span>
+            <Route exact path='/Graph' render={() => <GraphList data={data}/>}/>
+            <Route path='/Graph_list' component={() => <Graph data={data}/>}/>
           </div>
         </Router>
       </div>

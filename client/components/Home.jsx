@@ -6,7 +6,7 @@ export default function(props) {
   return (
     <Link to="/Graph">
       <div>
-        <h2>Home Logo</h2>
+        {<img src='https://images.pexels.com/photos/47047/gold-ingots-golden-treasure-47047.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb'/>}
         <h6>Styling by the64thcommodore.com</h6>
       </div>
     </Link>

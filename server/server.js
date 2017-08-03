@@ -1,28 +1,23 @@
-var path = require('path')
-var express = require('express')
-var bodyParser = require('body-parser')
-var routes = require('./routes/index')
-var server = express()
-var schedule = require('node-schedule')
-global.fetch = require('node-fetch')
+const path = require('path')
+const express = require('express')
+const bodyParser = require('body-parser')
+const routes = require('./routes/index')
+const schedule = require('node-schedule')
 const cc = require('cryptocompare')
+const server = express()
+global.fetch = require('node-fetch')
 
 server.use(bodyParser.json())
 server.use(express.static(path.join(__dirname, '../public')))
 
 server.use('/v1', routes)
 
-var rule = new schedule.RecurrenceRule()
- rule.minute = 26
+const rule = new schedule.RecurrenceRule()
+rule.minute = 26
 
 schedule.scheduleJob(rule, () => {
-  console.log('inside sched job FN')
-   cc.histoHour('BTC', 'USD')
-     .then(data => {
-       console.log(data)
-      })
-     .catch(console.error)
-   .catch((err) => console.log(err))
- })
+  cc.histoHour('BTC', 'USD').then(data => {
+  }).catch(console.error).catch((err) => console.log(err))
+})
 
 module.exports = server
