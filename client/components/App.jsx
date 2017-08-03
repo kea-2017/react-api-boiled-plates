@@ -39,13 +39,14 @@ export default class App extends React.Component {
             <span>" "</span>
             <row>
               <Route exact path='/Graph' render={() => <GraphList data={data} />}/>
-              <Route exact path='/Graph' component={GraphList}/>
-              <Route exact path='/Graph' component={GraphList}/>
+              <Route exact path='/Graph' render={() => <GraphList data={data} />}/>
+              <Route exact path='/Graph' render={() => <GraphList data={data} />}/>
+
             </row>
             <row>
-              <Route exact path='/Graph' component={GraphList}/>
-              <Route exact path='/Graph' component={GraphList}/>
-              <Route exact path='/Graph' component={GraphList}/>
+              <Route exact path='/Graph' render={() => <GraphList data={data} />}/>
+              <Route exact path='/Graph' render={() => <GraphList data={data} />}/>
+              <Route exact path='/Graph' render={() => <GraphList data={data} />}/>
               <Route path='/Graph_list' component={() => <Graph data={data}/>}/>
             </row>
           </div>
