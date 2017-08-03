@@ -10,16 +10,31 @@ import GraphTitle from './Graph_title'
 export default function Graph(props) {
   console.log(props);
   let data = props.data
-  return (
-    <div className='graph'>
+  return (<div>
+
+  {Object.keys(data).map((coinType) => {
+    return <div className='graph'>
       <Link to='/Graph_list/:id'>
+      <GraphTitle coinType={coinType}/>
       <VictoryChart>
-        <VictoryLine  data={data}
+        <VictoryLine  data={data[coinType]}
         x="time"
         y="open" />
       </VictoryChart>
       </Link>
-      <GraphTitle/>
     </div>
-  )
+  })}
+</div>)
+  // return (
+  //   <div className='graph'>
+  //     <Link to='/Graph_list/:id'>
+  //     <VictoryChart>
+  //       <VictoryLine  data={data.BTC}
+  //       x="time"
+  //       y="open" />
+  //     </VictoryChart>
+  //     </Link>
+  //     <GraphTitle/>
+  //   </div>
+  // )
 }

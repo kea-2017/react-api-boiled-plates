@@ -16,13 +16,20 @@ export default class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: []
+      data: {}
     }
   }
   componentDidMount() {
-    request.get('http://localhost:3000/v1/coinPrice').end((err, res) => {
+    this.getCoinData('BTC')
+    // this.getCoinData('ETH')
+  }
+  getCoinData(coinName) {
+    request.get(`http://localhost:3000/v1/coinPrice/${coinName}`).end((err, res) => {
       console.log(err, res.body);
-      this.setState({data: res.body})
+      if (err) return
+      let data = this.state.data
+      data[coinName] = res.body
+      this.setState({data})
     })
   }
   render() {
@@ -35,18 +42,12 @@ export default class App extends React.Component {
           <div>
             <Route exact path='/' component={Home}/>
             <Route path='/graph' component={Header}/>
-            <Route path='/graph' component={SearchBar}/>
+            <Route path='/graph' component={(props) => <SearchBar submit={this.getCoinData.bind(this)}/>}/>
             <span>" "</span>
+
             <row>
-              <Route exact path='/Graph' render={() => <GraphList data={data} />}/>
-              <Route exact path='/Graph' render={() => <GraphList data={data} />}/>
               <Route exact path='/Graph' render={() => <GraphList data={data} />}/>
 
-            </row>
-            <row>
-              <Route exact path='/Graph' render={() => <GraphList data={data} />}/>
-              <Route exact path='/Graph' render={() => <GraphList data={data} />}/>
-              <Route exact path='/Graph' render={() => <GraphList data={data} />}/>
               <Route path='/Graph_list' component={() => <Graph data={data}/>}/>
             </row>
           </div>
