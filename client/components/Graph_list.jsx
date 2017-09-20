@@ -15,12 +15,11 @@ export default class GraphList extends React.Component {
   render() {
     return (
       <div>
-  
-          <div className='oneGraph col-sm-4'>
-            <Graph data={this.props.data}/>
-          </div>
-
+        <tr className='oneGraph'>
+          <td><Graph data={this.props.data}/></td>
+        </tr>
       </div>
+
     )
   }
 }
