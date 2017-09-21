@@ -1,26 +1,30 @@
-var path = require('path')
-var express = require('express')
-var bodyParser = require('body-parser')
-var cors = require('cors')
-var server = express()
+
+const path = require('path')
+const express = require('express')
+const bodyParser = require('body-parser')
+const routes = require('./routes/index')
+const schedule = require('node-schedule')
+const cc = require('cryptocompare')
+global.fetch = require('node-fetch')
+const server = express()
+
+
 
 var routes = require('./routes/index')
 
 server.use(bodyParser.json())
 server.use(express.static(path.join(__dirname, '../public')))
 
-const corsOptions = {
-  origin: true,
-  methods: 'GET,PUT,POST,DELETE',
-  preflightContinue: false,
-  credentials: true
-}
+server.use('/v1', routes)
+
+const rule = new schedule.RecurrenceRule()
+rule.minute = 31
+
+schedule.scheduleJob(rule, () => {
+  cc.histoHour('BTC', 'USD').then(data => {
+  }).catch(console.error).catch((err) => console.log(err))
+})
+
+module.exports = server
 
 
-//your server must use the routes BELOW the cors options (and other middleware) is set
-server.use('/v1/', routes)
-
-module.exports = function(db) {
-  server.set('db', db)
-  return server
-}

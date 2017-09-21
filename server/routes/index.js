@@ -1,21 +1,20 @@
-var express = require('express')
-var router = express.Router()
 
-var db = require('../db')
+global.fetch = require('node-fetch')
+const cc = require('cryptocompare')
 
-router.get('/', (req, res) => {
-  var knex = req.app.get('db')
-  res.json(['Hello', 'Hi', "G'day"])
+const express = require('express')
+const router = express.Router()
 
-  //example of a db call from a route:
+router.get('/coinPrice/:coin', (req, res) => {
+  cc.histoHour(req.params.coin, 'USD').then(data => {
+    console.log(data[data.length-1])
+    console.log(data[data.length - 1].time - data[0].time);
+    console.log(data.length);
+    res.json(data)
+  }).catch(console.error)
 
-  // db.dbFunction(knex)
-  //   .then(response => {
-  //     res.json(response)
-  //   })
-  //   .catch(err => {
-  //     res.sendStatus(500).send(err + ' SERVER ERROR')
-  //   })
+
+
 })
 
 module.exports = router
