@@ -1,3 +1,4 @@
+
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import {HashRouter as Router, Route} from 'react-router-dom'
@@ -51,6 +52,8 @@ export default class App extends React.Component {
             <Route path='/Graph_list' component={() => <Graph data={data}/>}/>
           </div>
         </Router>
+
+
       </div>
     )
   }

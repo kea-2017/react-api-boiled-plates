@@ -1,3 +1,4 @@
+
 const path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -6,6 +7,10 @@ const schedule = require('node-schedule')
 const cc = require('cryptocompare')
 global.fetch = require('node-fetch')
 const server = express()
+
+
+
+var routes = require('./routes/index')
 
 server.use(bodyParser.json())
 server.use(express.static(path.join(__dirname, '../public')))
@@ -21,3 +26,5 @@ schedule.scheduleJob(rule, () => {
 })
 
 module.exports = server
+
+
